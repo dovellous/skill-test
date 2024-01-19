@@ -177,7 +177,7 @@ DROP TABLE IF EXISTS `top_tokens`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `top_tokens` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(10) NOT NULL,
+  `name` varchar(64) NOT NULL,
   `symbol` varchar(10) NOT NULL,
   `price` double NOT NULL,
   `daily_percent` double NOT NULL,
