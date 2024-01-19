@@ -10,7 +10,6 @@ class DBConnection {
             password: process.env.DB_PASS,
             database: process.env.DB_DATABASE
         });
-
         this.checkConnection();
     }
 
@@ -35,7 +34,6 @@ class DBConnection {
     }
 
     query = async (sql, values) => {
-        
         return new Promise((resolve, reject) => {
             const callback = (error, result) => {
                 if (error) {
