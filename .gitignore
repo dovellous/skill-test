@@ -25,3 +25,5 @@ backend/.env
 .zip
 .rar
 .bak
+*.lock
+yarn.lock
