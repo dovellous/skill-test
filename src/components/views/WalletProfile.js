@@ -3,7 +3,7 @@ import {useState} from 'react';
 import {AiOutlineQrcode,AiTwotoneContainer,AiOutlineKey,AiOutlineUser} from 'react-icons/ai';
 import WalletResetPasswordModal from "../component/WalletResetPasswordModal";
 import { useTranslation } from 'react-i18next';
-    
+
 function WalletProfile() {
   const [t,i18n] = useTranslation();
   const [use,setUser] = useState(JSON.parse(localStorage.getItem("userInfo")));
@@ -28,7 +28,7 @@ function WalletProfile() {
         </Col>
       </Row>
 
-
+      
       {
         showModal?
           <WalletResetPasswordModal  setModalShow={setShowModal} title="Reset Password"/>

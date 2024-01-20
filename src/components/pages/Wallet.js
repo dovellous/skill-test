@@ -34,6 +34,7 @@ function Wallet() {
   const [tokensInfo, setTokensInfo] = useState([]);
   const [loading,setLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [currentEthPrice, setCurrentEthPrice] = useState(0);
   const [connection,setConnection] = useState(true);
   const [publicKey,setPublicKey]=useState(localStorage.getItem("publicKey"));
   const [stopMode, setStopMode] = useState(true);
@@ -45,6 +46,14 @@ function Wallet() {
   const wallet = new WalletUtil()
   const serverUrl =SERVER_URL;
   let frequent;
+
+  useEffect(() => {
+    const displayEthPrice = async () => {
+      const ethPriceResult = await getTokenPriceInUsd(network, network.ethAddr);
+      setCurrentEthPrice(ethPriceResult);
+    }
+    displayEthPrice();
+  }, [network])
 
 
   useEffect(()=>{
@@ -215,6 +224,7 @@ function Wallet() {
                   </div>
                   <p className="text-3xl font-bold myColor1 mt-2">{t("Total Price")}</p>
                   <p className="text-xl font-bold myColor1">${parseFloat(totalPrice).toFixed(3)} USD </p>
+                  <p className="text-xxxl font-bold myColor1">1 ETH = ${parseFloat(currentEthPrice).toFixed(2)} USD </p>
                 </Col>
 
                 <Col xs={{span:24}} md={{span:14}} className="bg-white border-l-8 border-gray-200 p-4 ">
