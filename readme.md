@@ -9,6 +9,12 @@
 
 This project is a solution to a github test that involved fixing some bugs and displaying the ETH price on a web app. The app uses Node.js, Express, MySQL, React, and Web3.
 
+![Image asset](readme/solution.png)
+
+Below is the video that shows the app running, making a registration, login in to profile and displaying the current ETH price.
+
+[![Solution video](https://img.youtube.com/vi/g4P2IVodgwU/0.jpg)](https://www.youtube.com/watch?v=g4P2IVodgwU)
+
 ## Installation
 
 To run this project, you need to have Node.js version 16 and MySQL installed on the machine. You also need to create an account on [SMTP2GO](https://www.smtp2go.com/) and verify the business email.
@@ -267,7 +273,24 @@ Fixed in [Commit 8cd4b5b](https://github.com/dovellous/skill-test/commit/8cd4b5b
 
 <br>
 
-## 4. Error connectng Database
+## 4. Email OTP not working properly
+The SMTP2GO is working perfectly. B ut it may seem as if it receied a hardcoded OTP.
+
+I received the following email upon verifying email
+
+```
+Your Email verification code is 4227
+```
+
+![Image asset](readme/otp-1.png)
+
+When I tried using this OTP, it failed. I had to use the one dumped by the console `7315` which was different from `4227`
+
+![Image asset](readme/otp-2.png)
+
+The honest truth though is that I did not check this thoroughly, I may be wrong.
+
+## 5. Error connectng Database
 
 While working on this project, I encountered an error when trying to connect to an existing database on my local server. The error message was "`Access denied for user...`".
 
@@ -275,11 +298,15 @@ While working on this project, I encountered an error when trying to connect to 
 
 To resolve the issue, I first checked the browser console and found that the API call was returning a 500 error. 
 
-![Image asset](readme/error-1.png)
+![Image asset](readme/error.png)
+
+![Image asset](readme/error-0.png)
 
 ### Solution: Step 2 - Terminal debugging (API)
 
 I then checked the backend terminal console and found that the database connector was not handling errors properly.
+
+![Image asset](readme/error-1.png)
 
 ![Image asset](readme/error-2.png)
 
@@ -477,5 +504,20 @@ app.get('/users', (req, res) => {
 ```
 
 3. Run the server and navigate to `http://localhost:5000/api-docs` to view the Swagger UI and test your API routes.
+
+
+### 12. Make the app default language English
+
+Setting English as the default language on a multilingual application has several advantages:
+
+1. **Global Reach:** English is one of the most widely spoken languages in the world. By setting it as the default language, you can reach a larger audience.
+
+2. **Business Language:** English is often considered the international language of business. Many global corporations use English as their primary language.
+
+3. **Online Content:** A significant portion of content available on the internet is in English. Users might find it easier to use your application if it’s in the same language as most of their online content.
+
+4. **Ease of Translation:** There are many resources available for translating English to other languages, which can make it easier to provide multilingual support.
+
+5. **Standardization:** Many programming languages and documentation are in English. Having the same language can make development and troubleshooting more straightforward.
 
 
