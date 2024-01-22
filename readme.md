@@ -9,8 +9,6 @@
 
 This project is a solution to a github test that involved fixing some bugs and displaying the ETH price on a web app. The app uses Node.js, Express, MySQL, React, and Web3.
 
-![Image asset](readme/solution.png)
-
 ## Installation
 
 To run this project, you need to have Node.js version 16 and MySQL installed on the machine. You also need to create an account on [SMTP2GO](https://www.smtp2go.com/) and verify the business email.
@@ -77,8 +75,8 @@ SMTP2GO
 
 Database
 - `DB_HOST`: the database host, usually `localhost`
-- `DB_PORT`: the database port, usually `27017`
-- `DB_DATABASE`: the database name, `github_test`
+- `DB_PORT`: the database port, usually `3360`
+- `DB_DATABASE`: the database name, `skilltest_user`
 - `DB_USER`: the database user, if any
 - `DB_PASS`: the database password, if any
 
@@ -235,6 +233,7 @@ MySQL server running on the destination is an older version than the source. So 
 
 I had to fix the errors and replace the collations with the ones that matched my local MySQL server. For example, I had to change the collation from `utf8mb4_0900_ai_ci` to `utf8_general_ci`, as the former was not supported by my MySQL server version.
 
+Replace:
 ```sql
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ```
@@ -322,9 +321,10 @@ Typescript offers several advantages over JavaScript, such as static type-checki
 ```
     1. Install TypeScript: `npm install typescript --save-dev`
     2. Create a `tsconfig.json` file in the root directory of the project.
-    3. Convert the `.js` files to `.ts` files.
-    4. Update the imports and exports to use the TypeScript syntax.
-    5. Run the TypeScript compiler: `tsc`
+    3. Run `yarn add typescript @types/node @types/react @types/react-dom @types/jest --dev`
+    4. Convert the `.js` files to `.ts` files.
+    5. Update the imports and exports to use the TypeScript syntax.
+    6. Run the TypeScript compiler: `tsc`
 ```
 
 ### 3. Remove unused imports and variables:
@@ -356,7 +356,7 @@ Incorporating Redux provides a centralized and predictable state management solu
 ```
 
 ### 7. Implement Test Driven Development (TDD):
-Test Driven Development offers advantages such as improved code quality, better test coverage, and early detection of bugs. To achieve TDD in an existing application, start by writing tests for the existing codebase and then gradually introduce new features following the TDD cycle: write a test, make it pass, refactor.
+Test Driven Development offers advantages such as improved code quality, better test coverage, and early detection of bugs. We start by writing tests for the existing codebase and then gradually introduce new features following the TDD cycle: write a test, make it pass, refactor.
 #### Advantages of TDD
 - **Fewer bugs**: TDD can help catch bugs early in the development process, which can reduce the number of bugs in the code.
 - **Improved design**: TDD can help improve the design of the code by forcing you to think about the requirements before writing code.
@@ -385,6 +385,8 @@ function shortenAddress(address: string): string {
 
 ```
 
+For example `0xb794f5ea0ba39494ce839613fffba74279579268` becomes `0xb794...9268`
+
 ### 9. Improve the generation of a wallet address and mnemonic phrase:
 WHen creating a wallet address the system allows the user to generate menomic phrase but there is a usability issue. The user is told to verify the code on a modal and its easy because the user sees the phrases behind the modal and some phrases are already prepopulated. I think this weakens the security bit and is not user intuitive.
 
@@ -403,7 +405,7 @@ Some of the advantages of using these wallet providers are:
 
 - **WalletConnect**: WalletConnect is an open-source protocol that enables secure communication between Web3 applications and mobile wallets. It supports multiple blockchains, such as Ethereum, Binance Smart Chain, Polygon, Avalanche, and more.
 
-### How to intergrate Moralis' Web3 Auth API
+#### How to intergrate Moralis' Web3 Auth API
 The steps below ouline briefly on how to intergrate the Moralis API.
 We can also intergrate the individual wallet independantly using respective npm packages.
 ```
@@ -412,4 +414,68 @@ We can also intergrate the individual wallet independantly using respective npm 
 3. Open the `App.js` file and replace the placeholders with the server URL and application ID.
 4. Use Moralis' Web3 Auth API to enable different authentication methods, such as `authenticate()`, `link()`, `unlink()`, and `logout()`.
 ```
+
+### 11. Add Swagger API Docs
+I suggest using documentation for our APIs which can be accessed publicly. 
+Swagger is a powerful tool that can help you document, test, and write API structures. Here are some of the advantages of using Swagger:
+
+- Swagger automates the documentation process, which means it picks up the methods with GET, PUT, POST, DELETE attributes and prepares the documentation by itself. If any changes are implemented, then the Swagger documentation is automatically updated.
+- Swagger provides a UI integrated page where all the API methods are listed and enables the user to test any method that is required from the UI.
+
+To add Swagger to an existing Node.js API service, you can follow these steps:
+
+1. Install the `swagger-ui-express` and `swagger-jsdoc` packages using npm:
+```bash
+npm install swagger-ui-express swagger-jsdoc
+```
+
+2. Import the packages in your Node.js file:
+```javascript
+const swaggerUI = require('swagger-ui-express');
+const swaggerJsDoc = require('swagger-jsdoc');
+```
+
+3. Define the Swagger options and initialize the Swagger UI:
+```javascript
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: 'API Title',
+      description: 'API Description',
+      contact: {
+        name: 'API Developer'
+      },
+      servers: ['http://localhost:3000']
+    }
+  },
+  apis: ['app.js']
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+```
+
+4. Run the server and navigate to `http://localhost:5000/api-docs` to view the Swagger UI.
+
+To use Swagger, you can follow these steps:
+
+1. Define the Swagger options and initialize the Swagger UI as shown above.
+2. Add the Swagger annotations to your API routes:
+```javascript
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     description: Get all users
+ *     responses:
+ *       200:
+ *         description: Success
+ */
+app.get('/users', (req, res) => {
+  // Your code here
+});
+```
+
+3. Run the server and navigate to `http://localhost:5000/api-docs` to view the Swagger UI and test your API routes.
+
 
